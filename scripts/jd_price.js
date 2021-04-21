@@ -3,12 +3,9 @@
 原作者：@yichahucha
 
 ==============Quantumult-X==============
+[rewrite_remote]
+https://raw.githubusercontent.com/Fokit/Quantumult-X/main/rewrite/jd_price.conf, tag=京东比价, update-interval=86400, opt-parser=false, enabled=false
 
-[rewrite-remote]
-^https?://api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig) url script-response-body https://raw.githubusercontent.com/Fokit/Quantumult-X/main/scripts/jd_price.js
-
-[MitM]
-hostname = api.m.jd.com
 */
 
 const path1 = "serverConfig";
