@@ -1,11 +1,9 @@
 /*
 # 京东比价 修改版
 原作者：@yichahucha
-
 ==============Quantumult-X==============
 [rewrite_remote]
 https://raw.githubusercontent.com/Fokit/Quantumult-X/main/rewrite/jd_price.conf, tag=京东比价, update-interval=86400, opt-parser=false, enabled=false
-
 */
 
 const path1 = "serverConfig";
