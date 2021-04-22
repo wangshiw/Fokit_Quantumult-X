@@ -1,0 +1,6 @@
+# 获取 什么值得买 Cookie
+
+#smzdm
+^https:\/\/www\.smzdm\.com\/?.? url script-request-header https://raw.githubusercontent.com/chavyleung/scripts/master/smzdm/quanx/smzdm.cookie.js
+
+hostname = *.smzdm.com
