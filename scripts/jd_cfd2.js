@@ -1,6 +1,5 @@
 /*
 京喜财富岛-常规任务
-crontab="11 0,7,12,19,23 * * *"
 11 0,7,12,19,23 * * * jd_cfd2.js, tag=京喜财富岛, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png, enabled=true
 */
 
