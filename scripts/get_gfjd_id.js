@@ -23,6 +23,21 @@ if (actUrl[2]) {
 
 var actId=getQueryString(queryStr,"activityId")
 
+var a = Math.random() + ""
+var rand1 = a.charAt(5)
+quotes = new Array
+quotes[1] = '没有困难的工作，只有不努力的打工人。'
+quotes[2] = '爱情不是生活的全部，打工才是。'
+quotes[3] = '不是工作需要我，而是我需要打工。'
+quotes[4] = '打工人，打工魂，打工人都是人上人。'
+quotes[5] = '今日打工不努力，明日回村掰苞米。'
+quotes[6] = '今天搬砖不狠，明天地位不稳。'
+quotes[7] = '同是天涯打工人，相逢何必曾相识。'
+quotes[8] = '今天打工不勤快，明天社会被淘汰。'
+quotes[9] = '年年打工年年愁，天天打工像只猴。'
+quotes[0] = '身不由己打工人，命如草芥打工人 。'
+var quote = quotes[rand1]
+
 var notifyText = `/env jd_zdjr_activityUrl="${actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\n${quote}`
 
 console.log(`\n\n${notifyText}`)
