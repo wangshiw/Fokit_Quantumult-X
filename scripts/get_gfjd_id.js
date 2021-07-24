@@ -5,38 +5,33 @@
  */
 const $ = new Env('获取组队分京豆活动ID');
 let TG_BOT_TOKEN = `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
-// let TG_USER_ID = `129702206`
 let TG_USER_ID = `-1001589058412`
 var body = $response.body;
 // var url = $request.url;
 
 let obj = JSON.parse(body);
 
-var jump = new URL(obj.data.jumpUrl)
-var searchParams = new URLSearchParams(jump.search);
+var jUrl=obj.data.jumpUrl
+var queryStr=jUrl.split("?")[1]
 
-var a = Math.random() + ""
-var rand1 = a.charAt(5)
-quotes = new Array
-quotes[1] = '没有困难的工作，只有不努力的打工人。'
-quotes[2] = '爱情不是生活的全部，打工才是。'
-quotes[3] = '不是工作需要我，而是我需要打工。'
-quotes[4] = '打工人，打工魂，打工人都是人上人。'
-quotes[5] = '今日打工不努力，明日回村掰苞米。'
-quotes[6] = '今天搬砖不狠，明天地位不稳。'
-quotes[7] = '同是天涯打工人，相逢何必曾相识。'
-quotes[8] = '今天打工不勤快，明天社会被淘汰。'
-quotes[9] = '年年打工年年愁，天天打工像只猴。'
-quotes[0] = '身不由己打工人，命如草芥打工人 。'
-var quote = quotes[rand1]
+var actUrl = jUrl.split(`/`);
+if (actUrl[2]) {
+    actUrl = (actUrl.slice(0,3)).join("/");
+} else {
+    actUrl = "";
+}
 
-var notifyText = `/env jd_zdjr_activityUrl="${jump.origin}"\n/env jd_zdjr_activityId="${searchParams.get('activityId')}"\n\n${quote}`
+var actId=getQueryString(queryStr,"activityId")
+
+var notifyText = `/env jd_zdjr_activityUrl="${actUrl}"\n/env jd_zdjr_activityId="${actId}"\n\n${quote}`
+
 console.log(`\n\n${notifyText}`)
 
 !(async () => {
-    if (searchParams.get('activityId')) {
+    if (actId) {
         try {
             await update(notifyText,TG_BOT_TOKEN,TG_USER_ID)
+            $.msg(`组队分京豆`, `获取活动id成功🎉`, `${notifyText}`)
         } catch (error) {
             $.logErr(error);
         } finally {
@@ -49,7 +44,16 @@ console.log(`\n\n${notifyText}`)
     $.done();
 })
 
-$notify(`组队分京豆`, `获取活动id成功🎉`, `${notifyText}`)
+
+function getQueryString(qStr,name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = qStr.match(reg);
+    if (r != null) {
+      return unescape(r[2]);
+    }
+    return null;
+  }
+  
 
 function update(body,tgBotToken,tgUserID) {
     text = `${body}`
