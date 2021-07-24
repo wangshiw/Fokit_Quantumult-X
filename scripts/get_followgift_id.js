@@ -4,8 +4,9 @@
  * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=drawShopGift url script-request-body followShopInfo.js
  */
 const $ = new Env("获取JD店铺ID");
-let TG_BOT_TOKEN = `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`;
-let TG_USER_ID = `-1001589058412`;
+
+let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || 1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY
+let TG_USER_ID = $.getdata('TG_USER_ID') || -1001589058412
 
 var jUrl = $request.url;
 var jBody = $request.body;
