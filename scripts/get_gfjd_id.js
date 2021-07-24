@@ -4,8 +4,10 @@
  * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=jComExchange url script-response-body gfjd.js
  */
 const $ = new Env('获取组队分京豆活动ID');
-let TG_BOT_TOKEN = `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
-let TG_USER_ID = `-1001589058412`
+
+let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || 1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY
+let TG_USER_ID = $.getdata('TG_USER_ID') || -1001589058412
+
 var body = $response.body;
 // var url = $request.url;
 
