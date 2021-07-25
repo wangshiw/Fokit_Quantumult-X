@@ -1,23 +1,21 @@
+
 /**
  *
  * [rewrite_local]
- * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=drawShopGift url script-request-body followShopInfo.js
+ * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=jComExchange url script-response-body gfjd.js
  */
-const $ = new Env("获取JD店铺ID");
+const $ = new Env('获取组队分京豆活动ID');
+
 let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`;
 let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`;
 
-var jUrl = $request.url;
-var jBody = $request.body;
-var queryStr = jUrl.split("?")[1];
-console.log(jUrl);
-console.log(jBody);
-var reqBody = getQueryString(jBody, "body");
-var clientVersion = getQueryString(jBody, "clientVersion");
-var openudid = getQueryString(jBody, "openudid");
-var reqSign = getQueryString(jBody, "sign");
-var reqSt = getQueryString(jBody, "st");
-var reqSv = getQueryString(jBody, "sv");
+var body = $response.body;
+// var url = $request.url;
+
+let obj = JSON.parse(body);
+
+var jump = new URL(obj.data.jumpUrl)
+var searchParams = new URLSearchParams(jump.search);
 
 var a = Math.random() + ""
 var rand1 = a.charAt(5)
@@ -34,70 +32,59 @@ quotes[9] = '年年打工年年愁，天天打工像只猴。'
 quotes[0] = '身不由己打工人，命如草芥打工人 。'
 var quote = quotes[rand1]
 
-reqBody = JSON.parse(reqBody);
-
-var notifyText = `/env FOLLOW_SHOP_ID="${reqBody.shopId}"\n/env FOLLOW_VENDER_ID="${reqBody.venderId}"\n/env FOLLOW_ACT_ID="${reqBody.activityId}"\n/env FOLLOW_SIGN="clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}"\n\n${quote}`;
+var notifyText = `/env jd_zdjr_activityUrl="${jump.origin}"\n/env jd_zdjr_activityId="${searchParams.get('activityId')}"\n\n${quote}`
+console.log(`\n\n${notifyText}`)
 
 !(async () => {
-  if (reqBody.shopId) {
-    try {
-      await update(notifyText, TG_BOT_TOKEN, TG_USER_ID);
-      $.msg(`关注有礼`, `获取活动信息成功🎉`, `${notifyText}`);
-    } catch (error) {
-      $.logErr(error);
-    } finally {
-      $.done();
-    }
-  }
-})()
-  .catch((e) => {
-    $.log("", `❌ ${$.name}, 失败! 原因: ${e}!`, "");
-  })
-  .finally(() => {
-    $.done();
-  });
-
-function getQueryString(qStr, name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = qStr.match(reg);
-  if (r != null) {
-    return unescape(r[2]);
-  }
-  return null;
-}
-
-function update(body, tgBotToken, tgUserID) {
-  text = `${body}`;
-  let opt = {
-    url: `https://api.telegram.org/bot${tgBotToken}/sendMessage`,
-    body: `chat_id=${tgUserID}&text=${text}&disable_web_page_preview=true`,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    timeout: 10000,
-  };
-  return new Promise((resolve) => {
-    $.post(opt, (err, resp, data) => {
-      try {
-        if (err) {
-          console.log(`${JSON.stringify(err)}`);
-        } else {
-          data = JSON.parse(data);
-          if (data.ok) {
-            console.log("Telegram发送通知消息成功🎉。\n");
-          } else if (data.error_code === 400) {
-            console.log("请主动给bot发送一条消息并检查接收用户ID是否正确。\n");
-          } else if (data.error_code === 401) {
-            console.log("Telegram bot token 填写错误。\n");
-          }
+    if (searchParams.get('activityId')) {
+        try {
+            await update(notifyText,TG_BOT_TOKEN,TG_USER_ID)
+        } catch (error) {
+            $.logErr(error);
+        } finally {
+            $.done();
         }
-      } catch (error) {
-        $.logErr(error);
-      } finally {
-        resolve();
-      }
-    });
-  });
+    }
+})().catch((e) => {
+    $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
+}).finally(() => {
+    $.done();
+})
+
+$notify(`组队分京豆`, `获取活动id成功🎉`, `${notifyText}`)
+
+function update(body,tgBotToken,tgUserID) {
+    text = `${body}`
+    let opt = {
+        'url': `https://api.telegram.org/bot${tgBotToken}/sendMessage`,
+        'body': `chat_id=${tgUserID}&text=${text}&disable_web_page_preview=true`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        timeout: 10000
+    }
+    return new Promise(resolve => {
+        $.post(opt, (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${JSON.stringify(err)}`)
+                } else {
+                    data = JSON.parse(data);
+                    if (data.ok) {
+                        console.log('Telegram发送通知消息成功🎉。\n')
+                    } else if (data.error_code === 400) {
+                        console.log('请主动给bot发送一条消息并检查接收用户ID是否正确。\n')
+                    } else if (data.error_code === 401) {
+                        console.log('Telegram bot token 填写错误。\n')
+                    }
+                }
+            } catch (error) {
+                $.logErr(error);
+            } finally {
+                resolve();
+            }
+        })
+    })
 }
 
 // prettier-ignore
