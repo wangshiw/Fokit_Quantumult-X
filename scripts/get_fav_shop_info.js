@@ -2,7 +2,7 @@
  * ^https\:/\/wq\.jd\.com\/fav\/shop\/QueryOneShopFav url script-request-header get_fav_shop_info.js
  */
 
-const $ = new Env("DD店铺收藏有礼");
+const $ = new Env("收藏有礼抓取ID");
 
 let TG_BOT_TOKEN = $.getdata("TG_BOT_TOKEN") || ``;
 // 填写tg机器人token，格式12345:abcdefg
