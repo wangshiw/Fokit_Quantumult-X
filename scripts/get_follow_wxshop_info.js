@@ -41,7 +41,11 @@ if (jUrl.indexOf('functionId=getShopHomeActivityInfo') != -1) {
   }
 }
 
+
 if (jUrl.indexOf('functionId=isvObfuscator') != -1) {
+  console.log(`活动地址：${$.getdata('isvRedUrl')}`);
+  console.log(`店铺 ID：${$.getdata('isvShopId')}`);
+  console.log(`VenderID：${$.getdata('isvVnderId')}`);
   if (
     $.getdata('isvRedUrl') &&
     $.getdata('isvShopId') &&
