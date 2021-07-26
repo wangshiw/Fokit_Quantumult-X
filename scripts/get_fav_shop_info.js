@@ -1,5 +1,5 @@
 /**
- * ^https\:/\/wq\.jd\.com\/fav\/shop\/QueryOneShopFav url script-request-header dd_fav_shop_info.js
+ * ^https\:/\/wq\.jd\.com\/fav\/shop\/QueryOneShopFav url script-request-header get_fav_shop_info.js
  */
 
 const $ = new Env("DD店铺收藏有礼");
