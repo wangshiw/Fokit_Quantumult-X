@@ -28,8 +28,8 @@
           "id": "TG_USER_ID",
           "name": "TG群组ID",
           "type": "text",
-          "val": "",
-          "placeholder": "打工人，打工魂！",
+          "val": "-1001589058412",
+          "placeholder": "TG群组ID",
           "autoGrow": true,
           "rows": 2,
           "desc": "默认为偷撸群ID-1001589058412"
@@ -39,7 +39,7 @@
           "name": "打工语录",
           "type": "textarea",
           "val": "",
-          "placeholder": "-1001589058412",
+          "placeholder": "打工人，打工魂！",
           "autoGrow": false,
           "rows": 4,
           "desc": "使用&分割"
