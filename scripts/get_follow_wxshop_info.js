@@ -28,20 +28,21 @@ if (jUrl.indexOf('functionId=getShopHomeActivityInfo') != -1) {
       }
       $.done();
     }
-  } catch (e) {}
-  if ($request) {
-    var jBody = $request.body;
-    console.log(`getShopHomeActivityInfo===========${jBody}`);
-    var reqBody = getQueryString(jBody, 'body');
-    reqBody = JSON.parse(reqBody);
-    $.setdata(reqBody.shopId, 'isvShopId');
-    $.setdata(reqBody.venderId, 'isvVnderId');
-    console.log(
-      `获取活动店铺信息成功🎉isvShopId:${$.getdata(
-        'isvShopId',
-      )};isvVnderId:${$.getdata('isvVnderId')}`,
-    );
-    $.done();
+  } catch (e) {
+    if ($request) {
+      var jBody = $request.body;
+      console.log(`getShopHomeActivityInfo===========${jBody}`);
+      var reqBody = getQueryString(jBody, 'body');
+      reqBody = JSON.parse(reqBody);
+      $.setdata(reqBody.shopId, 'isvShopId');
+      $.setdata(reqBody.venderId, 'isvVnderId');
+      console.log(
+        `获取活动店铺信息成功🎉isvShopId:${$.getdata(
+          'isvShopId',
+        )};isvVnderId:${$.getdata('isvVnderId')}`,
+      );
+      $.done();
+    }
   }
 }
 
