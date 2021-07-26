@@ -13,19 +13,23 @@ let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`;
 var jUrl = $request.url;
 
 if (jUrl.indexOf('functionId=getShopHomeActivityInfo') != -1) {
-  if ($response) {
-    var respData = JSON.parse($response.body);
-    if (respData.result.IsvRedUrl) {
-      $.setdata(respData.result.IsvRedUrl, 'isvRedUrl');
-      console.log(`获取活动链接地址成功🎉isvRedUrl:${$.getdata('isvRedUrl')}`);
-    } else {
-      console.log(`获取链接地址信息获取失败，清空相关环境变量❌`);
-      $.setdata('', 'isvShopId');
-      $.setdata('', 'isvVnderId');
+  try {
+    if ($response) {
+      var respData = JSON.parse($response.body);
+      if (respData.result.IsvRedUrl) {
+        $.setdata(respData.result.IsvRedUrl, 'isvRedUrl');
+        console.log(
+          `获取活动链接地址成功🎉isvRedUrl:${$.getdata('isvRedUrl')}`,
+        );
+      } else {
+        console.log(`获取链接地址信息获取失败，清空相关环境变量❌`);
+        $.setdata('', 'isvShopId');
+        $.setdata('', 'isvVnderId');
+      }
+      $.done();
     }
-
-    $.done();
-  } else {
+  } catch (e) {}
+  if ($request) {
     var jBody = $request.body;
     console.log(`getShopHomeActivityInfo===========${jBody}`);
     var reqBody = getQueryString(jBody, 'body');
@@ -40,7 +44,6 @@ if (jUrl.indexOf('functionId=getShopHomeActivityInfo') != -1) {
     $.done();
   }
 }
-
 
 if (jUrl.indexOf('functionId=isvObfuscator') != -1) {
   console.log(`活动地址：${$.getdata('isvRedUrl')}`);
@@ -77,7 +80,6 @@ var notifyText = `/env ISV_SHOP_ID="${$.getdata(
 )}"\n/env ISV_RED_URL="${$.getdata('isvRedUrl')}"\n/env ISV_SIGN="${
   $.signBody
 }"`;
-
 
 function getQuotation(text) {
   const qt = $.getdata('QUOTATION');
