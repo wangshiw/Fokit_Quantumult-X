@@ -14,22 +14,35 @@ var queryStr=jUrl.split("?")[1]
 var shopId=getQueryString(queryStr,"shopId")
 var venderId=getQueryString(queryStr,"venderId")
 
-var a = Math.random() + ""
-var rand1 = a.charAt(5)
-quotes = new Array
-quotes[1] = '没有困难的工作，只有不努力的打工人。'
-quotes[2] = '爱情不是生活的全部，打工才是。'
-quotes[3] = '不是工作需要我，而是我需要打工。'
-quotes[4] = '打工人，打工魂，打工人都是人上人。'
-quotes[5] = '今日打工不努力，明日回村掰苞米。'
-quotes[6] = '今天搬砖不狠，明天地位不稳。'
-quotes[7] = '同是天涯打工人，相逢何必曾相识。'
-quotes[8] = '今天打工不勤快，明天社会被淘汰。'
-quotes[9] = '年年打工年年愁，天天打工像只猴。'
-quotes[0] = '身不由己打工人，命如草芥打工人 。'
-var quote = quotes[rand1]
+var notifyText = `/env OPEN_CARD_SHOP_ID="${shopId}"\n/env OPEN_CARD_VENDER_ID="${venderId}"`
 
-var notifyText = `/env OPEN_CARD_SHOP_ID="${shopId}"\n/env OPEN_CARD_VENDER_ID="${venderId}"\n\n${quote}`
+function getQuotation(text) {
+  const qt = $.getdata("QUOTATION");
+  let quotation = [
+    "打工人 打工魂 打工人都是人上人！！",
+    "累吗？累就对了，舒服是留给有钱人的。早安，打工人！",
+    "冷吗？冷就对了，温暖是留给开小轿车的人。早安，共享单车人！",
+    "难吗？难就对了，只要我们不努力，总有一天没饭吃。早安，打工人！",
+    "没有困难的工作，只有勇敢的打工人",
+    "早上好 在天愿作比翼鸟 在地怨为打工人。",
+    "有人夜夜笙歌，有人一大早为生活奔波，早安打工人。",
+    "打工可能会少活十年，不打工你一天也活不下去。早点睡，打工人。",
+    "生活里 80%的痛苦来源于打工 但是我知道 如果不打工 就会有 100%的痛苦来源于没钱 所以在打工和没钱之间 我选择打工 ——《打工宣言》",
+    "敢上九天揽月，敢下五洋捉鳖，但却不敢迟到。因为迟到扣钱，早安，打工人！",
+    "有人相爱，有人夜里看海，有人七八个闹钟起不来，早安打工人！",
+    "头等舱可以优先登机，银行 VIP 可以不用排队，演唱会最贵的票位置也最好，世界从不平等，你有多努力，就有多特殊，早安，打工人！",
+    "这么不努力，怎么做打工人啊你",
+    "早安，打工人 说“上班”，就感觉像是为生活所迫，不情不愿。说“打工”，就像是带着美好的憧憬，用努力和汗水去创造未来早安！打工人们！",
+  ];
+
+  if (qt) {
+    quotation = qt.split("&");
+  }
+  const quotationIndex = Math.floor(Math.random() * quotation.length);
+  const quotationStr = quotation[quotationIndex];
+  return `${text}\n\n${quotationStr}`;
+}
+notifyText = getQuotation(notifyText);
 
 !(async () => {
     if (shopId) {
