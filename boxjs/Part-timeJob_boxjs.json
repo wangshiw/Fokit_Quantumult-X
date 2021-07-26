@@ -7,7 +7,7 @@
   "apps": [
     {
       "id": "CrawlID",
-      "name": "组队瓜分/会员开卡/关注有礼",
+      "name": "组队瓜分/会员开卡/关注有礼/收藏有礼",
       "keys": [
         "TG_BOT_TOKEN",
         "TG_USER_ID",
