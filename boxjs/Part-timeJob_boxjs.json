@@ -38,7 +38,7 @@
           "id": "QUOTATION",
           "name": "打工语录",
           "type": "textarea",
-          "val": "-1001589058412",
+          "val": "",
           "placeholder": "-1001589058412",
           "autoGrow": false,
           "rows": 4,
