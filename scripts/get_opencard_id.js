@@ -3,7 +3,7 @@
  * [rewrite_local]
  * ^https\:\/\/shopmember\.m\.jd\.com\/shopcard\/ url script-response-body getShopid.js
  */
-const $ = new Env('获取JD店铺ID');
+const $ = new Env('会员开卡抓取ID');
 
 let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
 let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`
