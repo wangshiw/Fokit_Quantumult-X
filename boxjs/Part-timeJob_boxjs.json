@@ -1,12 +1,12 @@
 {
   "id": "Part-timeJob",
   "name": "打工仔",
-  "author": "@gfjd-surge",
-  "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png",
+  "author": "@CrawlID",
+  "icon": "https://raw.githubusercontent.com/Former-Years/icon/master/Part-timeJob.png",
   "repo": "https://github.com/Fokit/Quantumult-X/tree/main/scripts",
   "apps": [
     {
-      "id": "gfjd",
+      "id": "CrawlID",
       "name": "组队瓜分/会员开卡/关注有礼",
       "keys": [
         "TG_BOT_TOKEN",
@@ -49,8 +49,8 @@
       "repo": "",
       "script": "",
       "icons": [
-        "https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/jd.png",
-        "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png"
+        "https://raw.githubusercontent.com/Former-Years/icon/master/Part-timeJob.png",
+        "https://raw.githubusercontent.com/Former-Years/icon/master/Part-timeJob.png"
       ]
     }
   ]
