@@ -22,7 +22,7 @@ var reqSv = getQueryString(jBody, "sv");
 
 reqBody = JSON.parse(reqBody);
 
-var notifyText = `/env FOLLOW_SHOP_ID="${reqBody.shopId}"\n/env FOLLOW_VENDER_ID="${reqBody.venderId}"\n/env FOLLOW_ACT_ID="${reqBody.activityId}"\n/env FOLLOW_SIGN="clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}`
+var notifyText = `/env FOLLOW_SHOP_ID="${reqBody.shopId}"\n/env FOLLOW_VENDER_ID="${reqBody.venderId}"\n/env FOLLOW_ACT_ID="${reqBody.activityId}"\n/env FOLLOW_SIGN="clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}"`
 function getQuotation(text) {
   const qt = $.getdata("QUOTATION");
   let quotation = [
