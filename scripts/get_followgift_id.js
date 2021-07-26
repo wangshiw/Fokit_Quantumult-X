@@ -1,101 +1,118 @@
-
 /**
  *
  * [rewrite_local]
- * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=jComExchange url script-response-body gfjd.js
+ * ^https\:\/\/api\.m\.jd\.com\/client\.action\?functionId\=drawShopGift url script-request-body followShopInfo.js
  */
-const $ = new Env('获取组队分京豆活动ID');
+const $ = new Env("关注有礼抓取ID");
+const quotation=[
+  '只要我够努力，老板很快就会过上他想要的生活，该起床奋斗了，打工人!',
+  '靠别人，是公主，靠你叽哇，是日本人，靠自己，我是光荣的打工人!',
+  '打工赚不了几个钱，但是多打几份工，可以让你没有时间花钱!',
+  '打工累吗？累，但是我不能哭，因为骑电动车的时候，擦眼泪不安全!',
+  '这么不努力，怎么做打工人啊你!',
+  '打工人 打工魂 打工人都是人上人！',
+  '应对失眠的最好办法就是通宵 晚安 打工人！',
+  '打工可能会少活十年，不打工你一天也活不下去。早点睡，打工人。',
+  '冷吗？冷就对了，温暖是留给开小轿车的人。早安，共享单车人！',
+  '难吗？难就对了，只要我们不努力，总有一天没饭吃。早安，打工人！',
+  '累吗？累就对了，舒服是留给有钱人的。早安，打工人！！',
+  '没有困难的工作，只有勇敢的打工人！',
+  '在天愿作比翼鸟 在地怨为打工人',
+  '打工可能会少活十年，不打工你一天也活不下去。早点睡，打工人!',
+  '有人相爱，有人夜里看海，有人七八个闹钟起不来，早安打工人!',
+  '爱情不是生活的全部，打工才是。早安，打工人!',
+  '我带上了头盔，就无法吻你;摘下了头灰被交警罚款 50。早安，打工人!',
+  '每天对着空气挥一拳，不为别的，就为干这个世界！早安，打工人!',
+  '不是工作需要我，而是我需要工作，我打工，我快乐。早安，打工人！',
+  '不拼爹，不拼娘，不拼工作，不拼钱，我们打工人只拼命。努力！打工人！',
+  '天气变冷不像夏天的砖那么烫手了，就是总下雨滑不溜丢的。加油，打工人！',
+  '世上有两种最耀眼的光芒，一种是太阳，一种是打工人努力的模样。早上好，打工人！',
+  '说起打工就流泪；打工烦，打工难，真的好想把家还！',
+  '年年打工年年愁，天天加班像只猴，加班加点无报酬，天天挨骂无理由！',
+  '属于我的天堂只有一个打工天堂！',
+  '有人夜夜笙歌，有人一大早为生活奔波，早安打工人！'
+]
+const quotationIndex = Math.floor((Math.random()*quotation.length));
+const quotationStr = quotation[quotationIndex];
+let TG_BOT_TOKEN = `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`;
+let TG_USER_ID = `-1001589058412`;
 
-let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`;
-let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`;
+var jUrl = $request.url;
+var jBody = $request.body;
+var queryStr = jUrl.split("?")[1];
+console.log(jUrl);
+console.log(jBody);
+var reqBody = getQueryString(jBody, "body");
+var clientVersion = getQueryString(jBody, "clientVersion");
+var openudid = getQueryString(jBody, "openudid");
+var reqSign = getQueryString(jBody, "sign");
+var reqSt = getQueryString(jBody, "st");
+var reqSv = getQueryString(jBody, "sv");
 
-var body = $response.body;
-// var url = $request.url;
+reqBody = JSON.parse(reqBody);
 
-let obj = JSON.parse(body);
-
-var jump = new URL(obj.data.jumpUrl)
-var searchParams = new URLSearchParams(jump.search);
-
-var notifyText = `/env jd_zdjr_activityUrl="${jump.origin}"\n/env jd_zdjr_activityId="${searchParams.get('activityId')}"`
-function getQuotation(text) {
-  const qt = $.getdata("QUOTATION");
-  let quotation = [
-    "打工人 打工魂 打工人都是人上人！！",
-    "累吗？累就对了，舒服是留给有钱人的。早安，打工人！",
-    "冷吗？冷就对了，温暖是留给开小轿车的人。早安，共享单车人！",
-    "难吗？难就对了，只要我们不努力，总有一天没饭吃。早安，打工人！",
-    "没有困难的工作，只有勇敢的打工人",
-    "早上好 在天愿作比翼鸟 在地怨为打工人。",
-    "有人夜夜笙歌，有人一大早为生活奔波，早安打工人。",
-    "打工可能会少活十年，不打工你一天也活不下去。早点睡，打工人。",
-    "生活里 80%的痛苦来源于打工 但是我知道 如果不打工 就会有 100%的痛苦来源于没钱 所以在打工和没钱之间 我选择打工 ——《打工宣言》",
-    "敢上九天揽月，敢下五洋捉鳖，但却不敢迟到。因为迟到扣钱，早安，打工人！",
-    "有人相爱，有人夜里看海，有人七八个闹钟起不来，早安打工人！",
-    "头等舱可以优先登机，银行 VIP 可以不用排队，演唱会最贵的票位置也最好，世界从不平等，你有多努力，就有多特殊，早安，打工人！",
-    "这么不努力，怎么做打工人啊你",
-    "早安，打工人 说“上班”，就感觉像是为生活所迫，不情不愿。说“打工”，就像是带着美好的憧憬，用努力和汗水去创造未来早安！打工人们！",
-  ];
-
-  if (qt) {
-    quotation = qt.split("&");
-  }
-  const quotationIndex = Math.floor(Math.random() * quotation.length);
-  const quotationStr = quotation[quotationIndex];
-  return `${text}\n\n${quotationStr}`;
-}
-notifyText = getQuotation(notifyText);
+var notifyText = `/env FOLLOW_SHOP_ID="${reqBody.shopId}"\n/env FOLLOW_VENDER_ID="${reqBody.venderId}"\n/env FOLLOW_ACT_ID="${reqBody.activityId}"\n/env FOLLOW_SIGN="clientVersion=${clientVersion}|openudid=${openudid}|sign=${reqSign}|st=${reqSt}|sv=${reqSv}"\n\n${quotationStr}`;
 
 !(async () => {
-    if (searchParams.get('activityId')) {
-        try {
-            await update(notifyText,TG_BOT_TOKEN,TG_USER_ID)
-        } catch (error) {
-            $.logErr(error);
-        } finally {
-            $.done();
-        }
+  if (reqBody.shopId) {
+    try {
+      await update(notifyText, TG_BOT_TOKEN, TG_USER_ID);
+      $.msg(`关注有礼`, `获取活动信息成功🎉`, `${notifyText}`);
+    } catch (error) {
+      $.logErr(error);
+    } finally {
+      $.done();
     }
-})().catch((e) => {
-    $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
-}).finally(() => {
+  }
+})()
+  .catch((e) => {
+    $.log("", `❌ ${$.name}, 失败! 原因: ${e}!`, "");
+  })
+  .finally(() => {
     $.done();
-})
+  });
 
-$notify(`组队分京豆`, `获取活动id成功🎉`, `${notifyText}`)
+function getQueryString(qStr, name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = qStr.match(reg);
+  if (r != null) {
+    return unescape(r[2]);
+  }
+  return null;
+}
 
-function update(body,tgBotToken,tgUserID) {
-    text = `${body}`
-    let opt = {
-        'url': `https://api.telegram.org/bot${tgBotToken}/sendMessage`,
-        'body': `chat_id=${tgUserID}&text=${text}&disable_web_page_preview=true`,
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        timeout: 10000
-    }
-    return new Promise(resolve => {
-        $.post(opt, (err, resp, data) => {
-            try {
-                if (err) {
-                    console.log(`${JSON.stringify(err)}`)
-                } else {
-                    data = JSON.parse(data);
-                    if (data.ok) {
-                        console.log('Telegram发送通知消息成功🎉。\n')
-                    } else if (data.error_code === 400) {
-                        console.log('请主动给bot发送一条消息并检查接收用户ID是否正确。\n')
-                    } else if (data.error_code === 401) {
-                        console.log('Telegram bot token 填写错误。\n')
-                    }
-                }
-            } catch (error) {
-                $.logErr(error);
-            } finally {
-                resolve();
-            }
-        })
-    })
+function update(body, tgBotToken, tgUserID) {
+  text = `${body}`;
+  let opt = {
+    url: `https://api.telegram.org/bot${tgBotToken}/sendMessage`,
+    body: `chat_id=${tgUserID}&text=${text}&disable_web_page_preview=true`,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    timeout: 10000,
+  };
+  return new Promise((resolve) => {
+    $.post(opt, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`);
+        } else {
+          data = JSON.parse(data);
+          if (data.ok) {
+            console.log("Telegram发送通知消息成功🎉。\n");
+          } else if (data.error_code === 400) {
+            console.log("请主动给bot发送一条消息并检查接收用户ID是否正确。\n");
+          } else if (data.error_code === 401) {
+            console.log("Telegram bot token 填写错误。\n");
+          }
+        }
+      } catch (error) {
+        $.logErr(error);
+      } finally {
+        resolve();
+      }
+    });
+  });
 }
 
 // prettier-ignore
