@@ -28,8 +28,8 @@
           "id": "TG_USER_ID",
           "name": "TG群组ID",
           "type": "text",
-          "val": "-1001589058412",
-          "placeholder": "-1001589058412",
+          "val": "",
+          "placeholder": "打工人，打工魂！",
           "autoGrow": true,
           "rows": 2,
           "desc": "默认为偷撸群ID-1001589058412"
