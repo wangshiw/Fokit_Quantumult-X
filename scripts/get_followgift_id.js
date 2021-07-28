@@ -42,9 +42,7 @@ function getQuotation(text) {
     "早安，打工人 说“上班”，就感觉像是为生活所迫，不情不愿。说“打工”，就像是带着美好的憧憬，用努力和汗水去创造未来早安！打工人们！",
   ];
 
-  if (qt) {
-    quotation = qt.split("&");
-  }
+  if (qt && qt !== "null") quotation = qt.split('&');
   const quotationIndex = Math.floor(Math.random() * quotation.length);
   const quotationStr = quotation[quotationIndex];
   return `${text}\n\n${quotationStr}`;
