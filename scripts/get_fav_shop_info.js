@@ -92,14 +92,7 @@ function getGiftList() {
         } else {
           data = data.substring(data.indexOf(`(`) + 1, data.lastIndexOf(');'));
           data = JSON.parse(data);
-          if (data.gift.length > 0) {
-            data.gift.forEach((item) => {
-              if (item.jingBean && item.jingBean.sendCount > 0) {
-                $.shopgift = true;
-                console.log(`查询到有礼包信息，准备发送通知`);
-              }
-            });
-          }
+          if (data.gift) $.shopgift = true;
         }
       } catch (error) {
         $.logErr(error);
