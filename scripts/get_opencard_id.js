@@ -8,11 +8,15 @@ const $ = new Env('会员开卡抓取ID');
 let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
 let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001393498619`
 
-var jUrl = $request.url;
-var queryStr=jUrl.split("?")[1]
+try {
+  var jUrl = $request.url;
+  var queryStr = jUrl.split("?")[1]
+  var shopId = getQueryString(queryStr, "shopId")
+  var venderId = getQueryString(queryStr, "venderId")
+} catch (e) {
+  console.log(e)
+}
 
-var shopId=getQueryString(queryStr,"shopId")
-var venderId=getQueryString(queryStr,"venderId")
 
 var notifyText = `/env OPEN_CARD_SHOP_ID="${shopId}"\n/env OPEN_CARD_VENDER_ID="${venderId}"`
 
@@ -62,7 +66,7 @@ notifyText = getQuotation(notifyText);
 
 function getQueryString(qStr,name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = qStr.match(reg);
+    var r = qStr?.match(reg);
     if (r != null) {
       return unescape(r[2]);
     }
