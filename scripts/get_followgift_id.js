@@ -6,7 +6,7 @@
 const $ = new Env("关注有礼抓取ID");
 
 let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
-let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`
+let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001393498619`
 
 var jUrl = $request.url;
 var jBody = $request.body;
