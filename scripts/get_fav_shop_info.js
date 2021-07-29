@@ -3,10 +3,10 @@
  */
 
 const $ = new Env('DD店铺收藏有礼');
-let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || ``;
+let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`;
 // 填写tg机器人token，格式12345:abcdefg
 
-let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`;
+let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001393498619`;
 
 var reqUrl = $request.url;
 
