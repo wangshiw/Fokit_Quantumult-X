@@ -6,7 +6,7 @@
 const $ = new Env('组队瓜分抓取ID');
 
 let TG_BOT_TOKEN = $.getdata('TG_BOT_TOKEN') || `1814918753:AAHgOQVK6vya9UnI_4hTiFfVlyRMIExTsAY`
-let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001589058412`
+let TG_USER_ID = $.getdata('TG_USER_ID') || `-1001393498619`
 
 var body = $response.body;
 // var url = $request.url;
